@@ -1,0 +1,13 @@
+#!/bin/bash
+
+x=1
+
+#dir/doubles for doubletime
+#dir/sleeps for sleeps
+
+while [ $x -le 10000 ];do
+	echo -n `sed "$x !d" doubles`
+	echo -n ":"
+	echo  `sed "$x !d" sleeps`
+	x=$((x + 1))
+done

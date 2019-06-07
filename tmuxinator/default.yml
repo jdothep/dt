@@ -1,0 +1,12 @@
+name: default
+root: ~/
+windows:
+  - term:
+      layout: ae62,80x23,0,0,9
+      panes:
+        - clear
+  - hud:
+      layout: 6402,80x23,0,0[80x17,0,0,10,80x5,0,18,11]
+      panes:
+        - nload
+        - htop

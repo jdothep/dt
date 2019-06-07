@@ -1,0 +1,42 @@
+#!/bin/bash
+dblvar="void"
+slpvar="void"
+
+file="/home/u/prog/usr/1tick/1tdata"
+
+shuffle () {
+    shuf $file >> /home/u/prog/usr/1tick/1tdata2
+    rm /home/u/prog/usr/1tick/1tdata
+    mv /home/u/prog/usr/1tick/1tdata2 $file
+}
+
+
+double () {
+    echo "double, interval $dblvar" && xdotool click 1 ; sleep $dblvar ; xdotool click 1
+}
+
+slp () {
+    echo "sleeping for $slpvar" && sleep $slpvar
+}
+
+: '
+echo "3"
+sleep 1
+echo "2"
+sleep 1
+echo "1"
+sleep 1
+echo "START"
+sleep 1
+shuffle
+'
+
+while read -r line;do
+	dblvar=$(echo "$line" | awk -F ":" '{ print $1 }')
+	slpvar=$(echo "$line" | awk -F ":" '{ print $2 }')
+    
+    double
+    slp
+    #echo $line
+    
+done < "$file"

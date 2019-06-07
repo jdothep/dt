@@ -1,0 +1,42 @@
+#!/bin/bash
+
+usrdir=/home/u/prog/usr/herb
+count=1
+
+shuffle() {
+	shuf ${usrdir}/sleep > ${usrdir}/sleepnew
+	shuf ${usrdir}/minisleep > ${usrdir}/minisleepnew
+	shuf ${usrdir}/selectdata > ${usrdir}/selectdatanew
+	
+	rm ${usrdir}/sleep
+	rm ${usrdir}/minisleep
+	rm ${usrdir}/selectdata
+
+	mv ${usrdir}/sleepnew ${usrdir}/sleep
+	mv ${usrdir}/minisleepnew ${usrdir}/minisleep
+	mv ${usrdir}/selectdatanew ${usrdir}/selectdata
+
+	fl1=$(sed '1 !d' ${usrdir}/sleep)
+	fl2=$(sed '1 !d' ${usrdir}/minisleep)
+	echo "$fl1 + $fl2"
+}
+sleepy() {
+	sleeptime=$(sed "$count !d" ${usrdir}/sleep)
+	minisleep=$(sed "$count !d" ${usrdir}/minisleep)
+
+
+	echo -e "\n========sleeping $(echo "$sleeptime + $minisleep" |bc -l)"
+	sleep $sleeptime
+	sleep $minisleep
+}
+shuffle
+while read line;do
+
+	echo -e "\n====replaying $line"
+	echo "== ACTION" && cnee --replay -f ${usrdir}/herb${line}.xns &> /dev/null
+
+	sleepy	
+	
+	echo "================ XP received = $(echo "($count * 24 ) * 42.5" |bc -l)"
+	count=$((count + 1 )) && echo "============count = $count"
+done < ${usrdir}/selectdata

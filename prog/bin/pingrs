@@ -1,0 +1,5 @@
+#!/bin/bash
+
+server=$(($1 - 300))
+echo -e "\n\npinging $1 which is oldschool${server}.runescape.com\n\n"
+ping oldschool${server}.runescape.com

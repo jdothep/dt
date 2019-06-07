@@ -1,0 +1,3 @@
+#!/bin/bash
+
+java -jar /home/u/prog/usr/runelite/RuneLite.jar --clientargs "--developer-mode"
